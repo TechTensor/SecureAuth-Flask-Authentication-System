@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Two-Factor Authentication</h2>
+<p style="text-align: center; color: var(--text-sub); font-size: 0.9rem;">Enter the 6-digit verification code from your authenticator app.</p>
+<form method="POST" action="{{ url_for('verify_2fa', user_id=user_id) }}">
+    <div class="form-group">
+        <label>Authenticator Code</label>
+        <input type="text" name="token" placeholder="123456" maxlength="6" autocomplete="off" required style="text-align: center; font-size: 1.2rem; letter-spacing: 4px;">
+    </div>
+    <button type="submit">Verify Code</button>
+</form>
+{% endblock %}

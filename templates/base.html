@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Auth System</title>
+    <style>
+        :root {
+            --bg-color: #0f172a; --card-bg: #1e293b; --accent-blue: #38bdf8;
+            --accent-green: #10b981; --accent-red: #ef4444; --text-main: #f8fafc; --text-sub: #94a3b8;
+        }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg-color); color: var(--text-main); margin: 0; padding: 40px 20px; }
+        .auth-container { max-width: 420px; margin: 0 auto; background: var(--card-bg); padding: 30px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+        h2 { margin-top: 0; color: var(--accent-blue); text-align: center; }
+        .form-group { margin-bottom: 18px; }
+        label { display: block; margin-bottom: 6px; font-size: 0.9rem; color: var(--text-sub); }
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box;
+        }
+        button { width: 100%; padding: 12px; background: var(--accent-blue); border: none; color: #0f172a; font-weight: bold; border-radius: 6px; cursor: pointer; margin-top: 10px; }
+        button:hover { opacity: 0.9; }
+        .alert { padding: 10px; border-radius: 6px; margin-bottom: 15px; font-size: 0.9rem; text-align: center; }
+        .alert-danger { background: rgba(239,68,68,0.2); border: 1px solid var(--accent-red); color: var(--accent-red); }
+        .alert-success { background: rgba(16,185,129,0.2); border: 1px solid var(--accent-green); color: var(--accent-green); }
+        .alert-info { background: rgba(56,189,248,0.2); border: 1px solid var(--accent-blue); color: var(--accent-blue); }
+        .auth-links { text-align: center; margin-top: 15px; font-size: 0.85rem; }
+        .auth-links a { color: var(--accent-blue); text-decoration: none; }
+    </style>
+</head>
+<body>
+<div class="auth-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>

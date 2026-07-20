@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>User Dashboard</h2>
+<p>Welcome back, <strong>{{ current_user.username }}</strong>!</p>
+<p style="font-size: 0.9rem; color: var(--text-sub);">Email: {{ current_user.email }}</p>
+
+<hr style="border-color: #334155; margin: 20px 0;">
+
+<h3>🔐 2FA Status</h3>
+{% if current_user.is_2fa_enabled %}
+    <p style="color: var(--accent-green);">✓ Two-Factor Authentication is active.</p>
+{% else %}
+    <p style="color: var(--accent-red);">✗ Two-Factor Authentication is disabled.</p>
+    <p style="font-size: 0.85rem; color: var(--text-sub);">Scan the QR code below with Google Authenticator or Authy to setup 2FA:</p>
+    <div style="text-align: center; margin: 15px 0;">
+        <img src="{{ url_for('qr_code') }}" alt="2FA QR Code" style="border-radius: 8px; width: 160px; height: 160px;">
+    </div>
+    <form method="POST" action="{{ url_for('enable_2fa') }}">
+        <div class="form-group">
+            <input type="text" name="token" placeholder="Enter 6-digit QR Code" required style="text-align: center;">
+        </div>
+        <button type="submit" style="background: var(--accent-green); color: white;">Enable 2FA</button>
+    </form>
+{% endif %}
+
+<hr style="border-color: #334155; margin: 20px 0;">
+
+<a href="{{ url_for('logout') }}"><button style="background: var(--accent-red); color: white;">Logout</button></a>
+{% endblock %}
